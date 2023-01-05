@@ -23,6 +23,7 @@ NTPClient timeClient(ntpUDP);
 String formattedDate;
 String dayStamp;
 String timeStamp;
+String start_time = "09:35:00";
 
 void setup(){
   Serial.begin(4800);
@@ -61,7 +62,37 @@ void setup(){
   timeClient.setTimeOffset(32400);  // 한국은 GMT+9이므로 9*3600=32400
 }
 
+String getTimeDifference(String start_time, String timeStamp) {
+  // Split start_time into hours, minutes, and seconds
+  int start_hours = start_time.substring(0, 2).toInt();
+  int start_minutes = start_time.substring(3, 5).toInt();
+  int start_seconds = start_time.substring(6, 8).toInt();
+
+  // Split timeStamp into hours, minutes, and seconds
+  int hours = timeStamp.substring(0, 2).toInt();
+  int minutes = timeStamp.substring(3, 5).toInt();
+  int seconds = timeStamp.substring(6, 8).toInt();
+
+  // Convert start time and timeStamp into total seconds
+  int start_total_seconds = start_hours * 3600 + start_minutes * 60 + start_seconds;
+  int total_seconds = hours * 3600 + minutes * 60 + seconds;
+
+  // Subtract start time from timeStamp to get time difference in seconds
+  int time_difference_seconds = total_seconds - start_total_seconds;
+
+  // Convert time difference in seconds back into hours, minutes, and seconds
+  int time_difference_hours = time_difference_seconds / 3600;
+  time_difference_seconds -= time_difference_hours * 3600;
+  int time_difference_minutes = time_difference_seconds / 60;
+  time_difference_seconds -= time_difference_minutes * 60;
+
+  // Return time difference as a formatted string
+  return String(time_difference_hours) + ":" + String(time_difference_minutes) + ":" + String(time_difference_seconds);
+}
+
+
 void loop(){
+  String time_difference = getTimeDifference(start_time, timeStamp);
   int analogValue = analogRead(LIGHT_SENSOR_PIN);
   int analogValue2 = analogRead(LIGHT_SENSOR_PIN2);
   int analogValue3 = analogRead(LIGHT_SENSOR_PIN3);
@@ -95,7 +126,7 @@ void loop(){
     lcd.print("13A2C1");
   }
   else {
-    lcd.print(timeStamp);
+    lcd.print(time_difference);
   }
    delay(2000);
 
