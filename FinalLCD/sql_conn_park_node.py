@@ -10,11 +10,11 @@ class sql_class:
         print("here to connect SQL")
         # connect database
         self.remote = mysql.connector.connect(
-            host = "database-1.c1fwsytd1ul2.ap-northeast-2.rds.amazonaws.com",
-            port = 3306,
-            user = "iot",
-            password = "1234",
-            database = "amrbase"
+            host = "",  // AWS rds end point
+            port = 3306,   // port number
+            user = "",     //User Name
+            password = "",   //User Password
+            database = ""   / Database Name
         )
         self.cursor = self.remote.cursor(buffered=True)
         # sql query
