@@ -21,8 +21,8 @@ char plate_num[3][MAX_SSIZE] = {{"38FOK2"}, {"AB"}, {"CA"}};
 char sTime[3][MAX_SSIZE] = {{"13:09:28"}, {"09:10:50"}, {"-"}};
 
 //wifi 로그인
-const char* ssid       = "PinkLab"; 
-const char* password   = "pinkwink"; 
+const char* ssid       = "";    //Wifi Name
+const char* password   = "";    //Wifi Password 
 
 // Define NTP Client to get time
 WiFiUDP ntpUDP;
