@@ -14,7 +14,7 @@ class sql_class:
             port = 3306,   // port number
             user = "",     //User Name
             password = "",   //User Password
-            database = ""   / Database Name
+            database = ""   // Database Name
         )
         self.cursor = self.remote.cursor(buffered=True)
         # sql query
